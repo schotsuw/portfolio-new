@@ -96,3 +96,10 @@ Final fix wave: implemented e9deffe..9918a7b (7 commits); scoped re-review dispa
 Final fix wave re-review: all 11 findings ADDRESSED, no new Critical/Important (commits e9deffe..9918a7b). Unit 189, e2e 28/28 chromium+webkit, build clean.
 Final: parked — fonts unhashed but cached 1y immutable — Ruling: accept; rename the font file on any future change — cost: stale font for returning visitors if replaced in place.
 Final: parked — config.test CI regexes brittle to YAML reformatting; MobileDock buttons use browser-default focus ring; matcher misses names embedded inside longer tokens; Vercel Node 24 support unverified (check project settings) — Ruling: non-blocking minors — cost: small follow-ups.
+
+## Session 2 pre-flight (reconstructed 2026-11-27: these lines were lost from the uncommitted ledger mid-session, probably a subagent reset the file)
+- Ruling: T13 pushes `build` only and checks the Vercel preview, never `main` — user instruction overrides plan text ("push main") — cost: none.
+- Ruling: superseded the sandbox chromium-only ruling — on macOS both chromium and webkit run locally, CI added anyway — cost: none.
+- Ruling: deferred minors folded in as batched tasks 12a (config/lib/tests), 12b (components), 12c (content lint + CONTENT_TODO questions, no claim rewrites); T8 layout minors folded into T12 — cost: extra review cycles only.
+- Task 12a: complete (7ac3327..3d9310d; 50e94c6 + fix 3d9310d for jsdom noise it introduced). Reviewer minor "focus lost if Overlay unmounts while open" checked: App always mounts both Overlays → n/a.
+- History: `build` squashed into e0dcfb4 on main and force-pushed (user-authorized) to purge internal names; local backup branch `build-prepurge-local` (not pushed, contains old history — delete once satisfied).
