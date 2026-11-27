@@ -1,0 +1,209 @@
+@property --glass-angle-1 {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: -75deg;
+}
+@property --glass-angle-2 {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: -45deg;
+}
+
+/* Layer 1: root */
+.glass-btn-root,
+.glass-chip-root {
+  --glass-fill: rgb(255 255 255 / 0.45);
+  --glass-rim: rgb(255 255 255 / 0.9);
+  --glass-rim-dim: rgb(255 255 255 / 0.15);
+  --glass-shadow-color: rgb(0 0 0 / 0.14);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  isolation: isolate;
+  color: var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    --glass-angle-1 0.5s ease,
+    --glass-angle-2 0.5s ease,
+    transform 0.25s ease;
+}
+.dark .glass-btn-root,
+.dark .glass-chip-root {
+  --glass-fill: rgb(255 255 255 / 0.08);
+  --glass-rim: rgb(255 255 255 / 0.55);
+  --glass-rim-dim: rgb(255 255 255 / 0.05);
+  --glass-shadow-color: rgb(0 0 0 / 0.5);
+}
+.glass-chip-root {
+  cursor: default;
+}
+.glass-btn-root.glass-tint-accent,
+.dark .glass-btn-root.glass-tint-accent {
+  --glass-fill: color-mix(in srgb, var(--color-accent) 28%, transparent);
+  --glass-rim: color-mix(in srgb, var(--color-accent) 80%, white);
+}
+.glass-btn-root:hover {
+  --glass-angle-1: -125deg;
+  --glass-angle-2: -15deg;
+  transform: scale(1.03);
+}
+.glass-btn-root:active {
+  --glass-angle-1: -165deg;
+  --glass-angle-2: 20deg;
+  transform: scale(0.97);
+}
+.glass-btn-root:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* Layer 2: surface (blur, fill, specular rim) */
+.glass-surface {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  z-index: 0;
+}
+.glass-surface::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--glass-angle-1),
+    var(--glass-rim-dim),
+    var(--glass-rim) 25%,
+    var(--glass-rim-dim) 50%,
+    var(--glass-rim) 75%,
+    var(--glass-rim-dim)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Layer 3: content (with sheen) */
+.glass-content {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: var(--text-body-sm);
+  line-height: var(--text-body-sm--line-height);
+  font-weight: 500;
+  border-radius: inherit;
+}
+.glass-content::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    calc(var(--glass-angle-2) + 90deg),
+    transparent 30%,
+    rgb(255 255 255 / 0.35) 50%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.glass-chip-root .glass-content {
+  padding: 6px 12px;
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+}
+.glass-chip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--chip-dot, currentColor);
+  flex: none;
+}
+
+/* Layer 4: shadow */
+.glass-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: -1;
+  box-shadow: 0 8px 24px -6px var(--glass-shadow-color);
+  pointer-events: none;
+}
+
+/* Fallback when backdrop-filter is unsupported: opaque-ish fill */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-surface {
+    background: color-mix(in srgb, var(--card) 92%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-btn-root,
+  .glass-chip-root {
+    transition: none;
+  }
+  .glass-btn-root:hover,
+  .glass-btn-root:active {
+    transform: none;
+  }
+}
+
+/* Progressive bottom blur: 5 stacked masked layers */
+.bottom-gradient-blur {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  pointer-events: none;
+  z-index: 40;
+}
+.bottom-gradient-blur > span {
+  position: absolute;
+  inset: 0;
+}
+.bottom-gradient-blur > span:nth-child(1) {
+  -webkit-backdrop-filter: blur(0.5px);
+  backdrop-filter: blur(0.5px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 40%, transparent 60%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 40%, transparent 60%);
+}
+.bottom-gradient-blur > span:nth-child(2) {
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 20%, #000 40%, #000 60%, transparent 80%);
+  mask-image: linear-gradient(to bottom, transparent 20%, #000 40%, #000 60%, transparent 80%);
+}
+.bottom-gradient-blur > span:nth-child(3) {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 40%, #000 60%, #000 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 40%, #000 60%, #000 80%, transparent 100%);
+}
+.bottom-gradient-blur > span:nth-child(4) {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 60%, #000 80%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 60%, #000 80%, #000 100%);
+}
+.bottom-gradient-blur > span:nth-child(5) {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 80%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 80%, #000 100%);
+}

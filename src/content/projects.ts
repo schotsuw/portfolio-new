@@ -1,0 +1,182 @@
+import type { Project } from './types'
+
+// All copy here is paraphrased from spec 5 / 5.1 and is a draft until Saran reviews it.
+// No Introhive metrics, customer names, ticket IDs or internal names.
+export const projects: Project[] = [
+  {
+    slug: 'ask-introhive',
+    title: 'Ask Introhive',
+    tagline: "Production generative-AI assistant on Introhive's platform.",
+    status: 'shipped',
+    role: "Associate Machine Learning Engineer on Introhive's production generative-AI platform",
+    org: 'Introhive Services Inc.',
+    timeline: 'May 2025 – Apr 2026 (co-op), Oct 2026 – present (part-time)',
+    stack: ['Python', 'FastAPI', 'LangGraph', 'AWS Bedrock', 'Snowflake', 'DynamoDB', 'Redis', 'Rails'],
+    team: 'Introhive ML/AI team',
+    cardSize: 'tall',
+    art: 'rag',
+    links: [],
+    sections: [
+      {
+        kind: 'text',
+        heading: 'Overview',
+        body: "Ask Introhive is an AI assistant that answers questions about a firm's relationship data. I worked on the production platform behind it as part of Introhive's ML/AI team.",
+      },
+      {
+        kind: 'text',
+        heading: 'My role',
+        body: 'I developed features on the platform and designed and shipped the customer-data deletion pipeline. I also improved text-to-SQL quality and built relationship trend queries.',
+      },
+      { kind: 'diagram', art: 'rag', caption: 'Simplified view: question, retrieval and agents, SQL over Snowflake, answer.' },
+      {
+        kind: 'list',
+        heading: 'What I worked on',
+        items: [
+          'Features in the FastAPI services that run LangGraph multi-agent workflows on AWS Bedrock',
+          'Text-to-SQL over Snowflake and RAG over Amazon S3 Vectors',
+          'Work on DynamoDB-backed conversation state and Redis caching',
+          'Guardrails, including guardrail handling in the UI',
+          'JWT-scoped authorization: permission scopes and export permissions',
+          'Geography data for the assistant',
+          'Bugsnag and Grafana monitoring, and dependency-security patching',
+        ],
+      },
+      {
+        kind: 'text',
+        heading: 'Customer-data deletion pipeline',
+        body: "I designed and shipped a deletion pipeline for the AI platform's DynamoDB data. It spans a Python service and the Rails monolith, with batched deletes, retry handling and post-deletion verification. It covers conversation, LLM-interaction and MCP tool-interaction data and supports GDPR and PIPEDA erasure.",
+      },
+      {
+        kind: 'text',
+        heading: 'Text-to-SQL quality',
+        body: 'I restructured the RAG example library into domain-specific groups and tuned retrieval thresholds to reduce unrelated matches, which improved text-to-SQL answers.',
+      },
+      {
+        kind: 'text',
+        heading: 'Relationship trends',
+        body: 'I built Snowflake relationship-capital models and matching trend queries, so users can ask the assistant how colleague and organization relationships change over time.',
+      },
+      {
+        kind: 'list',
+        heading: 'Stack',
+        items: ['Python', 'FastAPI', 'LangGraph', 'AWS Bedrock', 'Snowflake', 'DynamoDB', 'Redis', 'Rails'],
+      },
+    ],
+    og: {
+      title: 'Ask Introhive · Saran Chotsuwan',
+      description: "Features on Introhive's production generative-AI platform: multi-agent workflows, RAG, text-to-SQL and a data deletion pipeline.",
+    },
+    draft: true,
+  },
+  {
+    slug: 'plant-as-battery',
+    title: 'Plant as Battery',
+    tagline: 'Smarter lighting for indoor farming, with a Raspberry Pi in the loop.',
+    status: 'in-progress',
+    role: 'Senior design team project: grow-light control, ML forecasting and optimization, grower web portal',
+    org: 'University of New Brunswick, with the Software Defined Energy Lab and Hero Energy and Engineering',
+    timeline: 'Fall 2026 – present',
+    stack: ['Raspberry Pi', 'React', 'Django', 'PostgreSQL'],
+    team: 'Senior design team',
+    cardSize: 'medium',
+    art: 'plant',
+    links: [],
+    sections: [
+      {
+        kind: 'text',
+        heading: 'Overview',
+        body: 'A senior design project on controlling grow-tent lighting for indoor farming, built with partners at the Software Defined Energy Lab and Hero Energy and Engineering.',
+      },
+      { kind: 'diagram', art: 'plant', caption: 'Raspberry Pi, lights, forecast, and back again.' },
+      {
+        kind: 'list',
+        heading: 'What the project covers',
+        items: [
+          'Raspberry Pi control of grow lights',
+          'ML forecasting and optimization',
+          'A web portal for growers',
+        ],
+      },
+      { kind: 'text', heading: 'Status', body: 'In progress. This page will be updated as the project develops.' },
+    ],
+    og: {
+      title: 'Plant as Battery · Saran Chotsuwan',
+      description: 'Senior design project on grow-light control, ML forecasting and a grower web portal.',
+    },
+    draft: true,
+  },
+  {
+    slug: 'slang-or-not',
+    title: 'Slang-or-Not',
+    tagline: 'Is this word being used as slang, in this sentence?',
+    status: 'in-progress',
+    role: 'CS4765 Natural Language Processing course project',
+    org: 'University of New Brunswick',
+    timeline: 'Fall 2026',
+    stack: ['NLP'],
+    team: 'Course team',
+    cardSize: 'medium',
+    art: 'slang',
+    links: [{ label: 'GitHub', href: 'https://github.com/schotsuw/slang-or-not' }],
+    sections: [
+      {
+        kind: 'text',
+        heading: 'Overview',
+        body: 'A course project that classifies whether a target word is used as slang in a given context, for example "the soup is salty" versus "she was salty after losing".',
+      },
+      { kind: 'diagram', art: 'slang', caption: 'Same word, different sense, depending on context.' },
+      {
+        kind: 'stats',
+        heading: 'Dataset',
+        items: [
+          { label: 'Dataset', value: 'SlangTrack' },
+          { label: 'Labelled examples', value: '12,712' },
+          { label: 'Target words', value: '10' },
+        ],
+      },
+      { kind: 'text', heading: 'Status', body: 'In progress. Results will be added once the experiments are complete.' },
+    ],
+    og: {
+      title: 'Slang-or-Not · Saran Chotsuwan',
+      description: 'NLP course project classifying whether a word is used as slang in context.',
+    },
+    draft: true,
+  },
+  {
+    slug: 'introhive-mcp',
+    title: 'Introhive MCP',
+    tagline: "Test automation for Introhive's MCP server.",
+    status: 'shipped',
+    role: 'Test automation for MCP tools, plus MCP tool-interaction data in the deletion pipeline',
+    org: 'Introhive Services Inc.',
+    timeline: 'Ongoing',
+    stack: ['Cucumber', 'MCP'],
+    team: 'Introhive ML/AI team',
+    cardSize: 'small',
+    art: 'mcp',
+    links: [],
+    sections: [
+      {
+        kind: 'text',
+        heading: 'The product',
+        body: "The Introhive MCP is an MCP server that connects a firm's relationship data to AI tools such as Copilot, Claude and GPT. The product has shipped.",
+      },
+      { kind: 'diagram', art: 'mcp', caption: 'MCP client, server, tools.' },
+      {
+        kind: 'text',
+        heading: 'My role: test automation',
+        body: 'I work on end-to-end (Cucumber) automation that verifies MCP tools respect permission settings, such as hiding activities. This work is in progress.',
+      },
+      {
+        kind: 'text',
+        heading: 'Deletion coverage',
+        body: 'I also covered MCP tool-interaction data in the customer-data deletion pipeline, which already handles conversation and LLM-interaction data.',
+      },
+    ],
+    og: {
+      title: 'Introhive MCP · Saran Chotsuwan',
+      description: "End-to-end test automation for Introhive's MCP tools, and deletion-pipeline coverage.",
+    },
+    draft: true,
+  },
+]

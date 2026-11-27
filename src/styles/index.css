@@ -1,0 +1,121 @@
+@import "tailwindcss";
+@import "./glass.css";
+@import "./art.css";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: "Open Runde";
+  src: url("/fonts/OpenRunde-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Runde";
+  src: url("/fonts/OpenRunde-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Runde";
+  src: url("/fonts/OpenRunde-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Runde";
+  src: url("/fonts/OpenRunde-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: "Open Runde", Inter, system-ui, sans-serif;
+
+  --text-caption: 12px;
+  --text-caption--line-height: 16px;
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 20px;
+  --text-body: 16px;
+  --text-body--line-height: 24px;
+  --text-title: 20px;
+  --text-title--line-height: 28px;
+  --text-h3: 24px;
+  --text-h3--line-height: 32px;
+  --text-h2: 32px;
+  --text-h2--line-height: 40px;
+  --text-h1: 44px;
+  --text-h1--line-height: 1.15;
+  --text-h1--letter-spacing: -0.05em;
+  --text-display: 56px;
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.05em;
+  --text-jumbo: 104px;
+  --text-jumbo--line-height: 1;
+  --text-jumbo--letter-spacing: -0.06em;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --spacing-card: 24px;
+  --spacing-card-mobile: 20px;
+
+  /* Original accent: warm coral */
+  --color-accent: #ff6b4a;
+  /* Generic green-ish status dot; not the reference site's accent */
+  --color-status-shipped: #2fbf71;
+  --color-status-progress: #64b5f6;
+}
+
+/* Mode-aware tokens: raw vars switch under .dark, utilities follow. */
+:root {
+  --page: #f0f0f0;
+  --card: #ffffff;
+  --media: #f3f3f3;
+  --ink: #121212;
+  --ink-2: #666666;
+  --line: rgb(0 0 0 / 0.05);
+  /* Focus ring: ink in light mode (accent is ~2.5:1 on the page, below WCAG 1.4.11's 3:1). */
+  --focus-ring: #121212;
+  /* Hero hover colour cycle, large text >= 3:1 on the page. */
+  --cycle-1: #d9391a;
+  --cycle-2: #1e78c8;
+  --cycle-3: #178a4c;
+}
+
+.dark {
+  --page: #000000;
+  --card: #161616;
+  --media: #141414;
+  --ink: #ffffff;
+  --ink-2: #9e9e9e;
+  --line: rgb(255 255 255 / 0.05);
+  --focus-ring: #ff6b4a;
+  --cycle-1: #ff6b4a;
+  --cycle-2: #64b5f6;
+  --cycle-3: #2fbf71;
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-card: var(--card);
+  --color-media: var(--media);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-line: var(--line);
+  --color-focus-ring: var(--focus-ring);
+  --color-cycle-1: var(--cycle-1);
+  --color-cycle-2: var(--cycle-2);
+  --color-cycle-3: var(--cycle-3);
+}
+
+html {
+  background-color: var(--page);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
